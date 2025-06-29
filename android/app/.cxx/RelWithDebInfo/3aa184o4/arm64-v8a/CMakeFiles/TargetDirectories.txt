@@ -1,0 +1,2 @@
+/Users/LeelanandaReddy/Documents/Flutter/book-search/android/app/.cxx/RelWithDebInfo/3aa184o4/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/LeelanandaReddy/Documents/Flutter/book-search/android/app/.cxx/RelWithDebInfo/3aa184o4/arm64-v8a/CMakeFiles/rebuild_cache.dir

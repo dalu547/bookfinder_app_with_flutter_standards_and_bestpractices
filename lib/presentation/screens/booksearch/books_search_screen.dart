@@ -38,7 +38,10 @@ class _BookListViewState extends State<BookListView> {
   @override
   void initState() {
     super.initState();
-    checkInternetAndShowSnackBar(context, networkInfo);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkInternetAndShowSnackBar(context, networkInfo);
+    });
 
     _pagingController.addPageRequestListener((pageKey) {
       if (currentQuery.isNotEmpty) {
