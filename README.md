@@ -6,7 +6,9 @@ This is a bookfinder app using openlibarayAPI.
 ## Project Goals
 
 **Screens**
+
 **1. BookSearch Screen** – We can search for books by entering a query in the search bar using the **OpenLibrary API**.
+
 **2. Book Details Screen** – We can fetch book details by passing the OpenLibrary ID. **Offline support** is also available for this.
 
 **Key functionalities**
