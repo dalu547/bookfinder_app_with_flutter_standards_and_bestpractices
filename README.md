@@ -69,6 +69,18 @@ The Project is Based on MVVM and Clean-Architecture with consideration of SOLID 
   
 
 
+## App Screenshots
+
+
+![Splash Screen](screenshots/splash.jpg)
+![Book SearcH Screen](screenshots/book_search.jpg) 
+![Book List Screen](screenshots/book_list.jpg) 
+![Book Details Screen](screenshots/book_details.jpg)
+
+
+
+
+
 
 
 
