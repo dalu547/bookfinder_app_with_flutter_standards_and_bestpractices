@@ -1,20 +1,20 @@
 import 'package:floor/floor.dart';
-import 'package:bookfinder/domain/entities/book_details_entity.dart';
+import 'package:bookfinder/data/tables/book_details_table.dart';
 
 @dao
 abstract class BookDetailsDao {
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<int> insertBookDetails(BookDetailEntity bookDetails);
+  Future<int> insertBookDetails(BookDetailsTable bookDetails);
 
   @update
-  Future<int> updateBook(BookDetailEntity bookDetails);
+  Future<int> updateBook(BookDetailsTable bookDetails);
 
   @delete
-  Future<int> deleteBook(BookDetailEntity bookDetails);
+  Future<int> deleteBook(BookDetailsTable bookDetails);
 
   @Query('SELECT * FROM tblBookDetails')
-  Future<List<BookDetailEntity>> getAllBookDetails();
+  Future<List<BookDetailsTable>> getAllBookDetails();
 
   @Query('SELECT * FROM tblBookDetails WHERE olid = :olid')
-  Future<BookDetailEntity?> getBookDetailsById(String olid);
+  Future<BookDetailsTable?> getBookDetailsById(String olid);
 }

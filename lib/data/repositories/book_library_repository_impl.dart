@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:bookfinder/app/utils/app_logger.dart';
 import 'package:bookfinder/core/network/error_handler.dart';
-import 'package:bookfinder/core/network/response_error.dart';
 import 'package:bookfinder/core/network/network_info.dart';
 import 'package:bookfinder/data/datasources/local/book_library_local_datasource.dart';
 import 'package:bookfinder/data/datasources/remote/book_library_remote_datasource.dart';
@@ -9,6 +8,7 @@ import 'package:bookfinder/domain/entities/book_details_entity.dart';
 import 'package:bookfinder/domain/entities/book_entity.dart';
 import 'package:bookfinder/domain/repositories/book_library_repository.dart';
 import 'package:bookfinder/app/resources/strings_manager.dart';
+import 'package:bookfinder/domain/core/failure.dart';
 
 class BookLibraryRepositoryImpl extends BookLibraryRepository {
   final BookLibraryRemoteDatasource _remoteDataSource;
@@ -22,7 +22,7 @@ class BookLibraryRepositoryImpl extends BookLibraryRepository {
   );
 
   @override
-  Future<Either<ResponseError, List<BookEntity>>> searchBooks(
+  Future<Either<Failure, List<BookEntity>>> searchBooks(
     String query,
     String fields,
     int page,
@@ -38,12 +38,12 @@ class BookLibraryRepositoryImpl extends BookLibraryRepository {
         return Left(ErrorHandler.handle(error));
       }
     } else {
-      return Left(ResponseError(-1, AppStrings.noInternet));
+      return Left(Failure.noInternet(AppStrings.noInternet));
     }
   }
 
   @override
-  Future<Either<ResponseError, BookDetailEntity>> fetchBookDetails(
+  Future<Either<Failure, BookDetailEntity>> fetchBookDetails(
       String olid) async {
     if (await _networkInfo.isConnected) {
       try {
@@ -58,7 +58,7 @@ class BookLibraryRepositoryImpl extends BookLibraryRepository {
         return Left(ErrorHandler.handle(error));
       }
     } else {
-      return Left(ResponseError(-1, AppStrings.noInternet));
+      return Left(Failure.noInternet(AppStrings.noInternet));
     }
   }
 

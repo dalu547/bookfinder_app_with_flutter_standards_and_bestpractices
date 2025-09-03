@@ -23,7 +23,7 @@ Future<void> initBookLibraryModule() async {
       () => RemoteDataSourceImpl(instance()));
 
   instance.registerLazySingleton<BookDetailsDao>(
-      () => instance<AppDatabase>().booDetailsDao);
+      () => instance<AppDatabase>().bookDetailsDao);
 
   instance.registerLazySingleton<BookLibraryLocalDatasource>(
       () => LocalDataSourceImpl(instance<BookDetailsDao>()));

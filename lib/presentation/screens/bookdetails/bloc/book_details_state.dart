@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:bookfinder/core/network/response_error.dart';
+import 'package:bookfinder/domain/core/failure.dart';
 import 'package:bookfinder/domain/entities/book_details_entity.dart';
 
 abstract class BookDetailsState extends Equatable {
@@ -27,7 +27,7 @@ class BookDetailsSuccess extends BookDetailsState {
 }
 
 class BookDetailsFailure extends BookDetailsState {
-  final ResponseError error;
+  final Failure error;
 
   const BookDetailsFailure(this.error);
 

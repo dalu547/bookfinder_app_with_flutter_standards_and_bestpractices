@@ -1,4 +1,5 @@
 import 'package:bookfinder/data/datasources/local/book_details_dao.dart';
+import 'package:bookfinder/data/tables/book_details_table.dart';
 import 'package:bookfinder/domain/entities/book_details_entity.dart';
 
 abstract class BookLibraryLocalDatasource {
@@ -13,12 +14,24 @@ class LocalDataSourceImpl implements BookLibraryLocalDatasource {
 
   @override
   Future<BookDetailEntity?> getBookDetailsFromDB(String olid) async {
-    final bookDetails = await bookDetailsDao.getBookDetailsById(olid);
-    return bookDetails;
+    final table = await bookDetailsDao.getBookDetailsById(olid);
+    if (table == null) return null;
+    return BookDetailEntity(
+      olid: table.olid,
+      publisher: table.publisher,
+      numberOfPages: table.numberOfPages,
+      publishDate: table.publishDate,
+    );
   }
 
   @override
   Future<void> insertBookDetailsToDB(BookDetailEntity bookDetails) async {
-    await bookDetailsDao.insertBookDetails(bookDetails);
+    final table = BookDetailsTable(
+      olid: bookDetails.olid,
+      publisher: bookDetails.publisher,
+      numberOfPages: bookDetails.numberOfPages,
+      publishDate: bookDetails.publishDate,
+    );
+    await bookDetailsDao.insertBookDetails(table);
   }
 }

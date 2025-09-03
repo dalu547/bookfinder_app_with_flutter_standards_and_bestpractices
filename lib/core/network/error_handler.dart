@@ -1,5 +1,5 @@
 import 'package:bookfinder/app/resources/strings_manager.dart';
-import 'package:bookfinder/core/network/response_error.dart';
+import 'package:bookfinder/domain/core/failure.dart';
 import 'package:dio/dio.dart';
 
 enum SimpleErrorType {
@@ -9,27 +9,27 @@ enum SimpleErrorType {
 }
 
 class ErrorHandler {
-  static ResponseError handle(dynamic error) {
+  static Failure handle(dynamic error) {
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
         case DioExceptionType.sendTimeout:
         case DioExceptionType.receiveTimeout:
-          return ResponseError(-1, AppStrings.connectionTimeout);
+          return Failure.timeout(AppStrings.connectionTimeout);
         case DioExceptionType.badResponse:
-          return ResponseError(
+          return Failure.server(
             error.response?.statusCode ?? 500,
             AppStrings.serverError,
           );
         case DioExceptionType.cancel:
-          return ResponseError(-1, AppStrings.requestCancelled);
+          return Failure.cancelled(AppStrings.requestCancelled);
         case DioExceptionType.connectionError:
-          return ResponseError(-1, AppStrings.noInternet);
+          return Failure.noInternet(AppStrings.noInternet);
         default:
-          return ResponseError(-1, AppStrings.genericError);
+          return Failure.unknown(AppStrings.genericError);
       }
     }
 
-    return ResponseError(-1, AppStrings.unexpectedError);
+    return Failure.unexpected(AppStrings.unexpectedError);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:bookfinder/core/base/base_usecase.dart';
-import 'package:bookfinder/core/network/response_error.dart';
+import 'package:bookfinder/domain/core/failure.dart';
 import 'package:bookfinder/domain/entities/book_entity.dart';
 import 'package:bookfinder/domain/repositories/book_library_repository.dart';
 
@@ -11,7 +11,7 @@ class BookSearchUseCase
   BookSearchUseCase(this._repository);
 
   @override
-  Future<Either<ResponseError, List<BookEntity>>> execute(
+  Future<Either<Failure, List<BookEntity>>> execute(
       BookSearchUseCaseInput input) {
     return _repository.searchBooks(
       input.query,

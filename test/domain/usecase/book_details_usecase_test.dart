@@ -1,5 +1,5 @@
 import 'package:bookfinder/app/resources/strings_manager.dart';
-import 'package:bookfinder/core/network/response_error.dart';
+import 'package:bookfinder/domain/core/failure.dart';
 import 'package:bookfinder/domain/entities/book_details_entity.dart';
 import 'package:bookfinder/domain/usecases/book_details_usecase.dart';
 import 'package:dartz/dartz.dart';
@@ -53,7 +53,7 @@ void main() {
     });
 
     test('returns error when both local and API fail', () async {
-      final error = ResponseError(-1, AppStrings.noInternet);
+      final error = Failure.noInternet(AppStrings.noInternet);
 
       when(mockRepository.getBookDetailsFromDB(testOlid))
           .thenThrow(Exception("No Cache"));

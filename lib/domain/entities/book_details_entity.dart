@@ -1,8 +1,4 @@
-import 'package:floor/floor.dart';
-
-@Entity(tableName: 'tblBookDetails')
 class BookDetailEntity {
-  @primaryKey
   final String olid;
   final String publisher;
   final int numberOfPages;

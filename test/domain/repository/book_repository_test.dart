@@ -67,13 +67,10 @@ void main() {
           testQuery, testFields, testPage, testLimit);
 
       expect(result.isLeft(), true);
-      result.fold(
-        (error) {
-          expect(error.code, -1);
-          expect(error.message, AppStrings.noInternet);
-        },
-        (_) => fail('Expected error but got success'),
-      );
+      result.fold((error) {
+        expect(error.code, -1);
+        expect(error.message, AppStrings.noInternet);
+      }, (_) => fail('Expected error but got success'));
     });
 
     test('returns default error when API throws exception', () async {
@@ -85,12 +82,9 @@ void main() {
           testQuery, testFields, testPage, testLimit);
 
       expect(result.isLeft(), true);
-      result.fold(
-        (error) {
-          expect(error.message, 'Unexpected error occurred.');
-        },
-        (_) => fail('Expected error but got success'),
-      );
+      result.fold((error) {
+        expect(error.message, 'Unexpected error occurred.');
+      }, (_) => fail('Expected error but got success'));
     });
   });
 }

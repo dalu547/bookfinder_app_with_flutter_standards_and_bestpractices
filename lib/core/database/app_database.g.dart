@@ -72,7 +72,7 @@ class _$AppDatabase extends AppDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  BookDetailsDao? _booDetailsDaoInstance;
+  BookDetailsDao? _bookDetailsDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -105,8 +105,8 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  BookDetailsDao get booDetailsDao {
-    return _booDetailsDaoInstance ??=
+  BookDetailsDao get bookDetailsDao {
+    return _bookDetailsDaoInstance ??=
         _$BookDetailsDao(database, changeListener);
   }
 }
@@ -116,30 +116,30 @@ class _$BookDetailsDao extends BookDetailsDao {
     this.database,
     this.changeListener,
   )   : _queryAdapter = QueryAdapter(database),
-        _bookDetailEntityInsertionAdapter = InsertionAdapter(
+        _bookDetailsTableInsertionAdapter = InsertionAdapter(
             database,
             'tblBookDetails',
-            (BookDetailEntity item) => <String, Object?>{
+            (BookDetailsTable item) => <String, Object?>{
                   'olid': item.olid,
                   'publisher': item.publisher,
                   'numberOfPages': item.numberOfPages,
                   'publishDate': item.publishDate
                 }),
-        _bookDetailEntityUpdateAdapter = UpdateAdapter(
+        _bookDetailsTableUpdateAdapter = UpdateAdapter(
             database,
             'tblBookDetails',
             ['olid'],
-            (BookDetailEntity item) => <String, Object?>{
+            (BookDetailsTable item) => <String, Object?>{
                   'olid': item.olid,
                   'publisher': item.publisher,
                   'numberOfPages': item.numberOfPages,
                   'publishDate': item.publishDate
                 }),
-        _bookDetailEntityDeletionAdapter = DeletionAdapter(
+        _bookDetailsTableDeletionAdapter = DeletionAdapter(
             database,
             'tblBookDetails',
             ['olid'],
-            (BookDetailEntity item) => <String, Object?>{
+            (BookDetailsTable item) => <String, Object?>{
                   'olid': item.olid,
                   'publisher': item.publisher,
                   'numberOfPages': item.numberOfPages,
@@ -152,16 +152,16 @@ class _$BookDetailsDao extends BookDetailsDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<BookDetailEntity> _bookDetailEntityInsertionAdapter;
+  final InsertionAdapter<BookDetailsTable> _bookDetailsTableInsertionAdapter;
 
-  final UpdateAdapter<BookDetailEntity> _bookDetailEntityUpdateAdapter;
+  final UpdateAdapter<BookDetailsTable> _bookDetailsTableUpdateAdapter;
 
-  final DeletionAdapter<BookDetailEntity> _bookDetailEntityDeletionAdapter;
+  final DeletionAdapter<BookDetailsTable> _bookDetailsTableDeletionAdapter;
 
   @override
-  Future<List<BookDetailEntity>> getAllBookDetails() async {
+  Future<List<BookDetailsTable>> getAllBookDetails() async {
     return _queryAdapter.queryList('SELECT * FROM tblBookDetails',
-        mapper: (Map<String, Object?> row) => BookDetailEntity(
+        mapper: (Map<String, Object?> row) => BookDetailsTable(
             olid: row['olid'] as String,
             publisher: row['publisher'] as String,
             numberOfPages: row['numberOfPages'] as int,
@@ -169,9 +169,9 @@ class _$BookDetailsDao extends BookDetailsDao {
   }
 
   @override
-  Future<BookDetailEntity?> getBookDetailsById(String olid) async {
+  Future<BookDetailsTable?> getBookDetailsById(String olid) async {
     return _queryAdapter.query('SELECT * FROM tblBookDetails WHERE olid = ?1',
-        mapper: (Map<String, Object?> row) => BookDetailEntity(
+        mapper: (Map<String, Object?> row) => BookDetailsTable(
             olid: row['olid'] as String,
             publisher: row['publisher'] as String,
             numberOfPages: row['numberOfPages'] as int,
@@ -180,20 +180,20 @@ class _$BookDetailsDao extends BookDetailsDao {
   }
 
   @override
-  Future<int> insertBookDetails(BookDetailEntity bookDetails) {
-    return _bookDetailEntityInsertionAdapter.insertAndReturnId(
+  Future<int> insertBookDetails(BookDetailsTable bookDetails) {
+    return _bookDetailsTableInsertionAdapter.insertAndReturnId(
         bookDetails, OnConflictStrategy.replace);
   }
 
   @override
-  Future<int> updateBook(BookDetailEntity bookDetails) {
-    return _bookDetailEntityUpdateAdapter.updateAndReturnChangedRows(
+  Future<int> updateBook(BookDetailsTable bookDetails) {
+    return _bookDetailsTableUpdateAdapter.updateAndReturnChangedRows(
         bookDetails, OnConflictStrategy.abort);
   }
 
   @override
-  Future<int> deleteBook(BookDetailEntity bookDetails) {
-    return _bookDetailEntityDeletionAdapter
+  Future<int> deleteBook(BookDetailsTable bookDetails) {
+    return _bookDetailsTableDeletionAdapter
         .deleteAndReturnChangedRows(bookDetails);
   }
 }
