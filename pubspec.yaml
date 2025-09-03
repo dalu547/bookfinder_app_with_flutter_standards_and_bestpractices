@@ -62,9 +62,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  retrofit_generator: ^9.1.7
+  # Align with floor_generator/analyzer compatibility
+  retrofit_generator: ^8.1.0
   floor_generator: ^1.5.0
-  build_runner: ^2.4.14
+  build_runner: ^2.4.13
   mockito: ^5.4.4
 
    
