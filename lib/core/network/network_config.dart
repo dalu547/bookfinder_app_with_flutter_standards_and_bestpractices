@@ -1,10 +1,14 @@
 class NetworkConfig {
-  static const String baseUrl = "http://openlibrary.org/";
+  // Allow override via --dart-define (useful for flavors/environments)
+  static const String baseUrl =
+      String.fromEnvironment('BASE_URL', defaultValue: 'http://openlibrary.org/');
 
-  static const String imageCoverBaseUrl =
-      "https://covers.openlibrary.org/b/olid/";
+  static const String imageCoverBaseUrl = String.fromEnvironment(
+    'IMAGE_COVER_BASE_URL',
+    defaultValue: 'https://covers.openlibrary.org/b/olid/',
+  );
 
-  static const int timeout = 5000;
+  static const int timeout = int.fromEnvironment('TIMEOUT_MS', defaultValue: 5000);
   static const Duration connectTimeout = Duration(milliseconds: timeout);
   static const Duration receiveTimeout = Duration(milliseconds: timeout);
 

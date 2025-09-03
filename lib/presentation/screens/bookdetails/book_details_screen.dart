@@ -8,6 +8,7 @@ import 'package:bookfinder/domain/entities/book_entity.dart';
 import 'package:bookfinder/presentation/screens/bookdetails/bloc/book_details_bloc.dart';
 import 'package:bookfinder/presentation/screens/bookdetails/bloc/book_details_event.dart';
 import 'package:bookfinder/presentation/screens/bookdetails/bloc/book_details_state.dart';
+import 'package:bookfinder/presentation/common/failure_mapper.dart';
 import 'package:bookfinder/app/utils/url_utils.dart';
 
 class BookDetailView extends StatefulWidget {
@@ -55,7 +56,7 @@ class _BookDetailViewState extends State<BookDetailView> {
             if (state is BookDetailsLoading) return const BookDetailShimmer();
 
             if (state is BookDetailsFailure) {
-              return Center(child: Text(state.error.message));
+              return Center(child: Text(mapFailureToMessage(state.error)));
             }
 
             if (state is BookDetailsSuccess) {

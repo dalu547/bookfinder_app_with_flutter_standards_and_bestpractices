@@ -16,6 +16,7 @@ import 'package:bookfinder/domain/entities/book_entity.dart';
 import 'package:bookfinder/presentation/screens/booksearch/bloc/book_search_bloc.dart';
 import 'package:bookfinder/presentation/screens/booksearch/bloc/book_search_event.dart';
 import 'package:bookfinder/presentation/screens/booksearch/bloc/book_search_state.dart';
+import 'package:bookfinder/presentation/common/failure_mapper.dart';
 
 class BookListView extends StatefulWidget {
   const BookListView({super.key});
@@ -152,7 +153,11 @@ class _BookListViewState extends State<BookListView> {
         _pagingController.appendPage(state.books, nextPageKey + 1);
       }
     } else if (state is BookSearchFailure) {
-      showAppSnackBar(context, state.error.message, color: Colors.red.shade400);
+      showAppSnackBar(
+        context,
+        mapFailureToMessage(state.error),
+        color: Colors.red.shade400,
+      );
     }
   }
 }
