@@ -23,7 +23,7 @@ Future<void> initAppModule() async {
       await $FloorAppDatabase.databaseBuilder('app_database.db').build();
   instance.registerLazySingleton<AppDatabase>(() => database);
 
-  initModuleDependecies();
+  await initModuleDependecies();
 }
 
 Future<void> initModuleDependecies() async {

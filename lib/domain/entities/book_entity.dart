@@ -1,26 +1,18 @@
-class BookEntity {
+import 'package:equatable/equatable.dart';
+
+class BookEntity extends Equatable {
   final String title;
   final String author;
   final String editionKey;
 
-  BookEntity({
+  const BookEntity({
     required this.title,
     required this.author,
     required this.editionKey,
   });
 
   @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        other is BookEntity &&
-            runtimeType == other.runtimeType &&
-            title == other.title &&
-            author == other.author &&
-            editionKey == other.editionKey;
-  }
-
-  @override
-  int get hashCode => title.hashCode ^ author.hashCode ^ editionKey.hashCode;
+  List<Object?> get props => [title, author, editionKey];
 
   @override
   String toString() =>

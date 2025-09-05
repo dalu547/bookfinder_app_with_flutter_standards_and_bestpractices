@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:bookfinder/core/base/base_usecase.dart';
 import 'package:bookfinder/domain/core/failure.dart';
+import 'package:equatable/equatable.dart';
 import 'package:bookfinder/domain/entities/book_details_entity.dart';
 import 'package:bookfinder/domain/repositories/book_library_repository.dart';
 
@@ -11,7 +12,7 @@ class BookDetailsUseCase
   BookDetailsUseCase(this._repository);
 
   @override
-  Future<Either<Failure, BookDetailEntity>> execute(
+  Future<Either<Failure, BookDetailEntity>> call(
     BookDetailsUseCaseInput input,
   ) async {
     try {
@@ -23,17 +24,20 @@ class BookDetailsUseCase
 
     final result = await _repository.fetchBookDetails(input.olid);
 
-    result.fold(
-      (_) => null,
-      (book) => _repository.insertBookDetailsToDB(book),
+    await result.fold(
+      (_) async => null,
+      (book) async => _repository.insertBookDetailsToDB(book),
     );
 
     return result;
   }
 }
 
-class BookDetailsUseCaseInput {
+class BookDetailsUseCaseInput extends Equatable {
   final String olid;
 
   const BookDetailsUseCaseInput(this.olid);
+
+  @override
+  List<Object?> get props => [olid];
 }

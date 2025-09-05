@@ -17,7 +17,7 @@ class BookDetailsBloc extends Bloc<BookDetailsEvent, BookDetailsState> {
     emit(BookDetailsLoading());
 
     final input = BookDetailsUseCaseInput(event.olid);
-    final result = await _bookDetailsUseCase.execute(input);
+    final result = await _bookDetailsUseCase(input);
 
     result.fold(
       (error) => emit(BookDetailsFailure(error)),

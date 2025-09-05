@@ -25,7 +25,7 @@ class TimeoutFailure extends Failure {
 }
 
 class ServerFailure extends Failure {
-  const ServerFailure(int code, String message) : super(code, message);
+  const ServerFailure(super.code, super.message);
 }
 
 class CancelledFailure extends Failure {

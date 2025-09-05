@@ -23,6 +23,7 @@ Future<void> checkInternetAndShowSnackBar(
 ) async {
   final hasConnection = await networkInfo.isConnected;
   if (!hasConnection) {
+    if (!context.mounted) return;
     showAppSnackBar(context, AppStrings.noInternet);
   }
 }

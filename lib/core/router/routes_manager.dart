@@ -16,17 +16,25 @@ class Routes {
       case bookList:
         return MaterialPageRoute(builder: (_) => const BookListView());
       case bookDetails:
-        final book = settings.arguments as BookEntity;
-        return MaterialPageRoute(
-          builder: (_) => BookDetailView(book: book),
-        );
+        final args = settings.arguments;
+        if (args is BookEntity) {
+          return MaterialPageRoute(
+            builder: (_) => BookDetailView(book: args),
+          );
+        }
+        return _notFoundRoute('Invalid arguments for $bookDetails');
 
       default:
-        return MaterialPageRoute(
-          builder: (_) => const Scaffold(
-            body: Center(child: Text('Route not found')),
-          ),
-        );
+        return _notFoundRoute('Route not found: ${settings.name}');
     }
   }
+}
+
+Route<dynamic> _notFoundRoute(String message) {
+  return MaterialPageRoute(
+    builder: (_) => Scaffold(
+      appBar: AppBar(title: const Text('Not Found')),
+      body: Center(child: Text(message)),
+    ),
+  );
 }

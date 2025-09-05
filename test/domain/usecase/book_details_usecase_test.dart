@@ -32,7 +32,7 @@ void main() {
       when(mockRepository.getBookDetailsFromDB(testOlid))
           .thenAnswer((_) async => testBookDetail);
 
-      final result = await useCase.execute(testInput);
+      final result = await useCase(testInput);
 
       expect(result, Right(testBookDetail));
       verify(mockRepository.getBookDetailsFromDB(testOlid));
@@ -45,7 +45,7 @@ void main() {
       when(mockRepository.fetchBookDetails(testOlid))
           .thenAnswer((_) async => Right(testBookDetail));
 
-      final result = await useCase.execute(testInput);
+      final result = await useCase(testInput);
 
       expect(result, Right(testBookDetail));
       verify(mockRepository.fetchBookDetails(testOlid));
@@ -60,7 +60,7 @@ void main() {
       when(mockRepository.fetchBookDetails(testOlid))
           .thenAnswer((_) async => Left(error));
 
-      final result = await useCase.execute(testInput);
+      final result = await useCase(testInput);
 
       expect(result, Left(error));
       verify(mockRepository.fetchBookDetails(testOlid));

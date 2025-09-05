@@ -1,4 +1,6 @@
-class BookDetailEntity {
+import 'package:equatable/equatable.dart';
+
+class BookDetailEntity extends Equatable {
   final String olid;
   final String publisher;
   final int numberOfPages;
@@ -17,6 +19,9 @@ class BookDetailEntity {
         numberOfPages: 0,
         publishDate: '',
       );
+
+  @override
+  List<Object?> get props => [olid, publisher, numberOfPages, publishDate];
 
   @override
   String toString() => 'BookDetailEntity(olid: $olid, publisher: $publisher, '

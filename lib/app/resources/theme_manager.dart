@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
 class ThemeManager {
-  static final ThemeData appTheme = ThemeData(
-    primaryColor: const Color(0xFF1DBBC5),
+  static const Color _brand = Color(0xFF1DBBC5);
+
+  static final ThemeData light = ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(seedColor: _brand,
+      brightness: Brightness.light,
+    ),
     scaffoldBackgroundColor: Colors.white,
-    dividerColor: Colors.grey.shade400,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF1DBBC5),
+      backgroundColor: _brand,
+      foregroundColor: Colors.white,
       titleTextStyle: TextStyle(
         color: Colors.white,
         fontSize: 20,
         fontWeight: FontWeight.w600,
       ),
       iconTheme: IconThemeData(color: Colors.white),
-    ),
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(color: Colors.black),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -31,13 +33,15 @@ class ThemeManager {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: Color(0xFF1DBBC5), width: 2),
+        borderSide: const BorderSide(color: _brand, width: 2),
       ),
     ),
-    colorScheme: ColorScheme.fromSwatch().copyWith(
-      primary: const Color(0xFF1DBBC5),
-      onPrimary: Colors.white,
-      secondary: Colors.teal,
+  );
+
+  static final ThemeData dark = ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(seedColor: _brand,
+      brightness: Brightness.dark,
     ),
   );
 }

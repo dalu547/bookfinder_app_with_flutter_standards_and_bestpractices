@@ -23,7 +23,7 @@ class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
       event.limit,
     );
 
-    final result = await bookSearchUseCase.execute(input);
+    final result = await bookSearchUseCase(input);
 
     result.fold(
       (error) => emit(BookSearchFailure(error)),

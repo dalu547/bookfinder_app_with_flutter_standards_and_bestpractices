@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:bookfinder/core/base/base_usecase.dart';
 import 'package:bookfinder/domain/core/failure.dart';
+import 'package:equatable/equatable.dart';
 import 'package:bookfinder/domain/entities/book_entity.dart';
 import 'package:bookfinder/domain/repositories/book_library_repository.dart';
 
@@ -11,7 +12,7 @@ class BookSearchUseCase
   BookSearchUseCase(this._repository);
 
   @override
-  Future<Either<Failure, List<BookEntity>>> execute(
+  Future<Either<Failure, List<BookEntity>>> call(
       BookSearchUseCaseInput input) {
     return _repository.searchBooks(
       input.query,
@@ -22,7 +23,7 @@ class BookSearchUseCase
   }
 }
 
-class BookSearchUseCaseInput {
+class BookSearchUseCaseInput extends Equatable {
   final String query;
   final String fields;
   final int page;
@@ -34,4 +35,7 @@ class BookSearchUseCaseInput {
     this.page,
     this.limit,
   );
+
+  @override
+  List<Object?> get props => [query, fields, page, limit];
 }
