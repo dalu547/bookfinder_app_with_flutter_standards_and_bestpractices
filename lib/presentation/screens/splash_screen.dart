@@ -11,11 +11,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Timer? _timer;
   @override
   void initState() {
     super.initState();
 
-    Timer(AppConstants.splashDelay, () {
+    _timer = Timer(AppConstants.splashDelay, () {
+      if (!mounted) return;
       Navigator.pushReplacementNamed(context, Routes.bookList);
     });
   }
@@ -32,5 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }

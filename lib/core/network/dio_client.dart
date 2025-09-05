@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:bookfinder/app/utils/app_logger.dart';
 import 'package:bookfinder/core/network/network_config.dart';
+import 'package:bookfinder/core/network/retry_interceptor.dart';
+import 'package:bookfinder/core/network/parse_error_logger.dart';
 
 class DioClient {
   DioClient();
@@ -22,6 +24,16 @@ class DioClient {
       receiveTimeout: NetworkConfig.receiveTimeout,
       headers: headers,
     );
+
+    // Retry transient failures a couple of times
+    dio.interceptors.add(RetryInterceptor(dio: dio));
+
+    // Log network errors for diagnostics
+    final parseLogger = ParseErrorLogger();
+    dio.interceptors.add(InterceptorsWrapper(onError: (e, handler) {
+      parseLogger.logError(e, e.stackTrace, e.requestOptions);
+      return handler.next(e);
+    }));
 
     if (kReleaseMode) {
       AppLogger.info(AppStrings.releaseModeNoLogs);
